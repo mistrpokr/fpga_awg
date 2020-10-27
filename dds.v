@@ -24,7 +24,7 @@ module dds(input clk,
     always @(posedge clk_100M)
     begin
         cnt  <= cnt + 14'h1;
-        DA_A <= cnt[13:0];
+        DA_A <= {cnt[13], 13'b0};
     end
     assign DAC_data = cnt[13:0];
     assign DA_CLK_A = clk_100M;
