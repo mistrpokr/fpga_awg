@@ -18,13 +18,15 @@ module dds(input clk,
     reg [13:0] cnt;
     reg [4:0] state;
     reg [13:0] DAC_data;
-    
+
+	wire [13:0] saw;
+
     initial begin
         cnt <= 16'b0;
     end
     
     wire cnt_tap = cnt[7];     // we take one bit out of the counter (here bit 7 = the 8th bit)
-    
+
     always @(posedge clk_100M)
     begin
         cnt  <= cnt + 14'h1;
@@ -40,7 +42,7 @@ module dds(input clk,
         
         case (state)
             5'd0: begin
-                DAC_data <= cnt[13:0]; //sawtooth
+                DAC_data = saw; //sawtooth
             end
             
             5'd1: begin
@@ -50,7 +52,7 @@ module dds(input clk,
             5'd2: begin
                 DAC_data <= {cnt[13], 13'b0};
             end
-
+            
             default:
             DAC_data <= {cnt[13], 13'b0};
         endcase
@@ -58,6 +60,13 @@ module dds(input clk,
     
     t1s t1s_inst(
     .clk(clk),
-    .s(t_1sec),
+    .s(t_1sec)
     );
+    
+    saw_gen saw_inst(
+    .cnt(cnt),
+	.en(1'b1), 
+    .DAC_in(saw)
+    );
+    
 endmodule
