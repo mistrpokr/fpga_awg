@@ -18,15 +18,20 @@ module dds(input clk,
     reg [13:0] cnt;
     reg [4:0] state;
     reg [13:0] DAC_data;
-
-	wire [13:0] saw;
-
+    
+    reg [3:0]en;
+    
+    wire [13:0] saw;
+    wire [13:0] Tri; // 'tri' is reserved in verilog
+    
     initial begin
         cnt <= 16'b0;
+        
+        en <= 4'b0;
     end
     
     wire cnt_tap = cnt[7];     // we take one bit out of the counter (here bit 7 = the 8th bit)
-
+    
     always @(posedge clk_100M)
     begin
         cnt  <= cnt + 14'h1;
@@ -40,13 +45,17 @@ module dds(input clk,
             state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state
         end
         
+
+        
         case (state)
             5'd0: begin
-                DAC_data = saw; //sawtooth
+                en <= 4'b0001;
+                DAC_data <= saw; //sawtooth
             end
             
             5'd1: begin
-                DAC_data <= {1'b1, cnt[13] ? ~cnt[12:0] : cnt[12:0]}; //triangular
+                en <= 4'b0010;
+                DAC_data <= Tri; //triangular
             end
             
             5'd2: begin
@@ -58,6 +67,9 @@ module dds(input clk,
         endcase
     end
     
+    // assign DAC_data = saw;
+    // assign DAC_data = Tri;
+    
     t1s t1s_inst(
     .clk(clk),
     .s(t_1sec)
@@ -65,8 +77,13 @@ module dds(input clk,
     
     saw_gen saw_inst(
     .cnt(cnt),
-	.en(1'b1), 
+    .en(en[0]),
     .DAC_in(saw)
     );
     
+    tri_gen tri_inst(
+    .cnt(cnt),
+    .en(en[1]),
+    .DAC_in(Tri),
+    );
 endmodule
