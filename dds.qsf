@@ -75,6 +75,7 @@ set_location_assignment PIN_73 -to DA_A[3]
 set_location_assignment PIN_72 -to DA_A[2]
 set_location_assignment PIN_71 -to DA_A[1]
 set_location_assignment PIN_70 -to DA_A[0]
+set_global_assignment -name VERILOG_FILE saw_gen.v
 set_global_assignment -name VERILOG_FILE t1s.v
 set_global_assignment -name VERILOG_FILE dds.v
 set_global_assignment -name CDF_FILE Chain1.cdf
