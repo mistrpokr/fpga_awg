@@ -17,12 +17,12 @@ module dds(input clk,
     
     reg [13:0] cnt;
     reg [4:0] state;
+    reg [3:0] en;
     reg [13:0] DAC_data;
-    
-    reg [3:0]en;
     
     wire [13:0] saw;
     wire [13:0] Tri; // 'tri' is reserved in verilog
+    wire [13:0] sqr;
     
     initial begin
         cnt <= 16'b0;
@@ -45,30 +45,28 @@ module dds(input clk,
             state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state
         end
         
-
+        
         
         case (state)
             5'd0: begin
-                en <= 4'b0001;
+                en       <= 4'b0001;
                 DAC_data <= saw; //sawtooth
             end
             
             5'd1: begin
-                en <= 4'b0010;
+                en       <= 4'b0010;
                 DAC_data <= Tri; //triangular
             end
             
             5'd2: begin
-                DAC_data <= {cnt[13], 13'b0};
+                en       <= 4'b0100;
+                DAC_data <= sqr;
             end
             
             default:
             DAC_data <= {cnt[13], 13'b0};
         endcase
     end
-    
-    // assign DAC_data = saw;
-    // assign DAC_data = Tri;
     
     t1s t1s_inst(
     .clk(clk),
@@ -85,5 +83,11 @@ module dds(input clk,
     .cnt(cnt),
     .en(en[1]),
     .DAC_in(Tri),
+    );
+    
+    sqr_gen sqr_inst(
+    .cnt(cnt),
+    .en(en[2]),
+    .DAC_in(sqr),
     );
 endmodule
