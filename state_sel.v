@@ -1,12 +1,18 @@
 module state_sel (clk,
                   cmd,
-                  state);
+                  state,
+                  state_freq,
+                  state_amp,
+                  state_phase);
     input clk;
     input [7:0] cmd;
     output reg [4:0] state;
+    output reg [13:0] state_freq;
+    output reg [7:0] state_amp;
+    output reg [7:0] state_phase;
     
-	initial state <= 5'd3; 
-
+    initial state <= 5'd3;
+    
     always @(posedge clk) begin
         case (cmd)
             8'd49: begin //1

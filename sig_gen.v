@@ -1,5 +1,8 @@
 module sig_gen(input clk,
                input [4:0] state,
+               input [13:0] state_freq,
+               input [7:0] state_amp,
+               input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
                output DA_WR_A);
@@ -78,24 +81,36 @@ module sig_gen(input clk,
     saw_gen saw_inst(
     .cnt(cnt),
     .en(en[0]),
+    .state_freq(state_freq),
+    .state_amp(state_amp),
+    .state_phase(state_phase),
     .DAC_in(saw)
     );
     
     tri_gen tri_inst(
     .cnt(cnt),
     .en(en[1]),
+    .state_freq(state_freq),
+    .state_amp(state_amp),
+    .state_phase(state_phase),
     .DAC_in(Tri),
     );
     
     sqr_gen sqr_inst(
     .cnt(cnt),
     .en(en[2]),
+    .state_freq(state_freq),
+    .state_amp(state_amp),
+    .state_phase(state_phase),
     .DAC_in(sqr),
     );
     
     sin_gen sin_inst(
     .addr(addr),
     .en(en[3]),
+    .state_freq(state_freq),
+    .state_amp(state_amp),
+    .state_phase(state_phase),
     .DAC_in(sin),
     );
     

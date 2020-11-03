@@ -3,6 +3,9 @@ module sin_gen (en,
                 DAC_in);
     input [15:0] addr;
     input en;
+    input [13:0] state_freq;
+    input [7:0] state_amp;
+    input [7:0] state_phase;
     output [13:0] DAC_in;
     
     wire [13:0] sin_w;
