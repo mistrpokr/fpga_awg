@@ -1,14 +1,15 @@
 module sig_gen(input clk,
-           output reg [13:0]DA_A,
-           output DA_CLK_A,
-           output DA_WR_A);
+               input [4:0] state,
+               output reg [13:0]DA_A,
+               output DA_CLK_A,
+               output DA_WR_A);
     
     parameter MAX_state = 5'd3;
-
+    
     wire t_1sec;
-
+    
     reg [13:0] cnt;
-    reg [4:0] state;
+    // reg [4:0] state;
     reg [3:0] en;
     reg [15:0] addr;
     reg [13:0] DAC_data;
@@ -34,9 +35,9 @@ module sig_gen(input clk,
         
         addr <= addr + 16'd1321;
         
-        if (t_1sec) begin
-            state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state
-        end
+        // if (t_1sec) begin
+        //     state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state
+        // end
         
         case (state)
             5'd0: begin
@@ -59,6 +60,11 @@ module sig_gen(input clk,
                 DAC_data <= sin;
             end
             
+            5'd10: begin
+                en       <= 4'b0000;
+                DAC_data <= 14'b0;
+            end
+            
             default:
             DAC_data <= 14'b0;
         endcase
@@ -68,7 +74,7 @@ module sig_gen(input clk,
     .clk(clk),
     .s(t_1sec)
     );
-
+    
     saw_gen saw_inst(
     .cnt(cnt),
     .en(en[0]),
