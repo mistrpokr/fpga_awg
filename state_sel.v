@@ -51,7 +51,7 @@ module state_sel (clk,
                 state_freq <= 12'd1;
             end
             8'd50: begin //2
-				state_freq <= 12'd10; 
+				state_freq <= 12'd524; 
             end
             8'd51: begin //3
 				state_freq <= 12'd100; 

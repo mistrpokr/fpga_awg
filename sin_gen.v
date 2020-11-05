@@ -12,7 +12,7 @@ module sin_gen (en,
     input [7:0] state_phase;
     output [13:0] DAC_in;
     
-    reg [15:0] addr;
+    reg [18:0] addr;
     wire [13:0] sin_w;
     wire [15:0] addr_step;
     
@@ -24,7 +24,7 @@ module sin_gen (en,
     end
     
     sin_table sin_tab_inst(
-    .address(addr[15:7]),
+    .address(addr[18:10]),
     .data(sin_w)
     );
 endmodule
