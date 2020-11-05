@@ -12,7 +12,7 @@ module dds (input clk,
     wire [7:0] cmd;
     wire [4:0] state;
     wire [11:0] state_freq;
-    wire [7:0] state_amp;
+    wire [2:0] state_amp;
     wire [7:0] state_phase;
 
 

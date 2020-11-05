@@ -1,7 +1,7 @@
 module sig_gen(input clk,
                input [4:0] state,
                input [11:0] state_freq,
-               input [7:0] state_amp,
+               input [2:0] state_amp,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
