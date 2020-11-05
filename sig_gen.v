@@ -1,6 +1,6 @@
 module sig_gen(input clk,
                input [4:0] state,
-               input [13:0] state_freq,
+               input [11:0] state_freq,
                input [7:0] state_amp,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
@@ -21,6 +21,7 @@ module sig_gen(input clk,
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
     wire [13:0] sin;
+    wire [15:0] addr_step;
     
     initial begin
         cnt  <= 16'b0;
@@ -28,15 +29,16 @@ module sig_gen(input clk,
         en   <= 4'b0;
     end
     
-    assign DA_CLK_A = clk;
-    assign DA_WR_A  = ~clk;
+    assign DA_CLK_A        = clk;
+    assign DA_WR_A         = ~clk;
+    assign addr_step[11:0] = state_freq[11:0];
     
     always @(posedge clk)
     begin
         cnt  <= cnt + 14'h1;
         DA_A <= DAC_data;
         
-        addr <= addr + 16'd1321;
+        addr <= addr + addr_step;
         
         // if (t_1sec) begin
         //     state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state

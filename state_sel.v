@@ -7,13 +7,27 @@ module state_sel (clk,
     input clk;
     input [7:0] cmd;
     output reg [4:0] state;
-    output reg [13:0] state_freq;
+    output reg [11:0] state_freq;
     output reg [7:0] state_amp;
     output reg [7:0] state_phase;
     
-    initial state <= 5'd3;
+	parameter DEF_STATE = 5'd3;
+
+	wire shift_1s; 
+
+    initial begin
+        state <= DEF_STATE;
+		state_freq <= 12'd1000; 
+		state_amp <= 8'd50; 
+		state_phase <= 8'd50; 
+    end
     
     always @(posedge clk) begin
+
+		if (shift_1s) begin
+			state_freq <= state_freq + 12'd100; 
+		end
+
         case (cmd)
             8'd49: begin //1
                 state <= 5'd0;
@@ -33,4 +47,9 @@ module state_sel (clk,
             default: state <= state;
         endcase
     end
+
+	t1s freq_shift(
+		.clk(clk), 
+		.s(shift_1s)
+	); 
 endmodule
