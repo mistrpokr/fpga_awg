@@ -17,7 +17,7 @@ module state_sel (clk,
 
     initial begin
         state <= DEF_STATE;
-		state_freq <= 12'd1; 
+		state_freq <= 12'd1000; 
 		state_amp <= 3'd50; 
 		state_phase <= 8'd50; 
     end
