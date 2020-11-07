@@ -1,6 +1,6 @@
-`timescale 1ns/1ns
+`timescale 1us/1us
 
-module sim_saw_gen ();
+module sim_sqr_gen ();
     reg clk;
     
     initial clk <= 1'b0;
@@ -18,7 +18,7 @@ module sim_saw_gen ();
     assign state_amp   = 3'd50;
     assign state_phase = 8'd50;
     
-    saw_gen saw_gen_inst(
+    sqr_gen sqr_gen_inst(
     .en(en),
     .clk(clk),
     .state_freq(state_freq),
