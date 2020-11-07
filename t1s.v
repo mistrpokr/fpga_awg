@@ -3,7 +3,7 @@ module t1s (clk,
     input clk;
     output s;
     
-    parameter TIMER_1SEC = 28'd119999999;
+    parameter TIMER_1SEC = 28'd100000000; //TODO change to d100000000 for 100MHZ
     
     reg [27:0] loop;
     reg cnt;
