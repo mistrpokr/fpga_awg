@@ -92,7 +92,7 @@ module sig_gen(input clk,
     .state_freq(state_freq),
     .state_amp(state_amp),
     .state_phase(state_phase),
-    .DAC_in(Tri),
+    .DAC_in(Tri)
     );
     
     sqr_gen sqr_inst(
@@ -101,7 +101,7 @@ module sig_gen(input clk,
     .state_freq(state_freq),
     .state_amp(state_amp),
     .state_phase(state_phase),
-    .DAC_in(sqr),
+    .DAC_in(sqr)
     );
     
     sin_gen sin_inst(
@@ -110,7 +110,7 @@ module sig_gen(input clk,
     .state_freq(state_freq),
     .state_amp(state_amp),
     .state_phase(state_phase),
-    .DAC_in(sin),
+    .DAC_in(sin)
     );
     
 endmodule

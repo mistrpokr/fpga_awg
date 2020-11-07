@@ -30,7 +30,7 @@ module dds (input clk,
     .state_phase(state_phase),
     .DA_A(DA),
     .DA_CLK_A(DA_CLK),
-    .DA_WR_A(DA_WR),
+    .DA_WR_A(DA_WR)
     );
     
     usb usb_inst(
@@ -50,7 +50,7 @@ module dds (input clk,
     .state(state), 
     .state_freq(state_freq),
     .state_amp(state_amp),
-    .state_phase(state_phase),
+    .state_phase(state_phase)
     );
 endmodule
     
