@@ -1,10 +1,10 @@
-module state_sel (clk,
-                  cmd,
-                  rd,
-                  state,
-                  state_freq,
-                  state_amp,
-                  state_phase);
+module state_sel_comp (clk,
+                       cmd,
+                       rd,
+                       state,
+                       state_freq,
+                       state_amp,
+                       state_phase);
     input clk;
     input [7:0] cmd;
     output reg [4:0] state; // TODO Will 5 bits work?
@@ -76,10 +76,10 @@ module state_sel (clk,
                     begin
                         parsed[31:0] <= parse_buf[31:0]; // Send buffer to "permanent" parsed register
                         
-                        state        <= parsed[31:24] - 8'd48;
-                        state_freq   <= parsed[23:16] - 8'd48;
-                        state_amp    <= parsed[15:8] - 8'd48;
-                        state_phase  <= parsed[7:0] - 8'd48;
+                        state       <= parsed[31:24] - 8'd48;
+                        state_freq  <= parsed[23:16] - 8'd48;
+                        state_amp   <= parsed[15:8] - 8'd48;
+                        state_phase <= parsed[7:0] - 8'd48;
                         
                         cmd_state <= 2'd0; // Keep normal output following 4-digit command
                     end
