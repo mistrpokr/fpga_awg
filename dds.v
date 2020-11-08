@@ -14,8 +14,8 @@ module dds (input clk,
     wire [11:0] state_freq;
     wire [2:0] state_amp;
     wire [7:0] state_phase;
-
-
+    
+    
     clk2	clk2_inst (
     .inclk0 (clk),
     .c0 (clk_40M),
@@ -44,10 +44,10 @@ module dds (input clk,
     .cmd_buf(cmd)
     );
     
-    state_sel state_sel_inst(
+    state_sel #(.DEF_STATE(5'd4)) state_sel_inst(
     .clk(clk_100M),
     .cmd(cmd),
-    .state(state), 
+    .state(state),
     .state_freq(state_freq),
     .state_amp(state_amp),
     .state_phase(state_phase)
@@ -55,4 +55,4 @@ module dds (input clk,
 endmodule
     
     
-    //TODO 0000瀵瑰簲-0.5V; 1111瀵瑰簲0.5V
+    //TODO 0000瀵瑰�?-0.5V; 1111瀵瑰�?0.5V
