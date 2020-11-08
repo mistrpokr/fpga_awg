@@ -5,7 +5,6 @@ module saw_gen (en,
                 state_phase,
                 DAC_in);
     input en;
-<<<<<<< HEAD
     input clk;
     input [11:0] state_freq;
     input [2:0] state_amp;
@@ -16,14 +15,6 @@ module saw_gen (en,
     reg [13:0] data_amp;
     wire [13:0] data;
     wire [15:0] addr_step;
-=======
-    input [13:0] state_freq;
-    input [7:0] state_amp;
-    input [7:0] state_phase;
-    output [13:0] DAC_in;
-    
-    assign DAC_in[13:0] = en?cnt[13:0]:14'b0;
->>>>>>> 2ed4bf49a5e55a2e80738fb8e0c765a98e688fa3
     
     initial addr <= 19'd0;
     

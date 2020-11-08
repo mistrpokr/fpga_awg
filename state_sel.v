@@ -7,7 +7,6 @@ module state_sel (clk,
     input clk;
     input [7:0] cmd;
     output reg [4:0] state;
-<<<<<<< HEAD
     output reg [11:0] state_freq;
     output reg [2:0] state_amp;
     output reg [7:0] state_phase;
@@ -23,14 +22,6 @@ module state_sel (clk,
 		state_phase <= 8'd50; 
     end
     
-=======
-    output reg [13:0] state_freq;
-    output reg [7:0] state_amp;
-    output reg [7:0] state_phase;
-    
-    initial state <= 5'd3;
-    
->>>>>>> 2ed4bf49a5e55a2e80738fb8e0c765a98e688fa3
     always @(posedge clk) begin
 
 		// if (shift_1s) begin

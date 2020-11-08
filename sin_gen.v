@@ -6,14 +6,9 @@ module sin_gen (en,
                 DAC_in);
     // input [15:0] addr;
     input en;
-<<<<<<< HEAD
     input clk;
     input [11:0] state_freq;
     input [2:0] state_amp;
-=======
-    input [13:0] state_freq;
-    input [7:0] state_amp;
->>>>>>> 2ed4bf49a5e55a2e80738fb8e0c765a98e688fa3
     input [7:0] state_phase;
     output [13:0] DAC_in;
     
