@@ -44,8 +44,8 @@ module dds (input clk,
     .cmd_buf()
     );
     
-    state_sel #(.DEF_STATE(5'd10)) state_sel_inst(
-    .clk(clk),
+    state_sel #(.DEF_STATE(5'd4)) state_sel_inst(
+    .clk(clk_100M),
     .cmd(cmd),
     .state(state),
     .state_freq(state_freq),
@@ -57,4 +57,4 @@ module dds (input clk,
 endmodule
     
     
-    //TODO 0000瀵瑰�??-0.5V; 1111瀵瑰�??0.5V
+    //TODO 0000瀵瑰�?-0.5V; 1111瀵瑰�?0.5V

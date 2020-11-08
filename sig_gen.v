@@ -21,6 +21,7 @@ module sig_gen(input clk,
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
     wire [13:0] sin;
+    wire [13:0] rand;
     
     initial begin
         cnt  <= 16'b0;
@@ -28,8 +29,8 @@ module sig_gen(input clk,
         en   <= 4'b0;
     end
     
-    assign DA_CLK_A        = clk;
-    assign DA_WR_A         = ~clk;
+    assign DA_CLK_A = clk;
+    assign DA_WR_A  = ~clk;
     
     always @(posedge clk)
     begin
@@ -60,6 +61,10 @@ module sig_gen(input clk,
             5'd3: begin
                 en       <= 4'b1000;
                 DAC_data <= sin;
+            end
+            
+            5'd4: begin
+                DAC_data <= rand;
             end
             
             5'd10: begin
@@ -113,4 +118,9 @@ module sig_gen(input clk,
     .DAC_in(sin)
     );
     
+    lfsr lfsr_inst(
+    .clk(clk),
+    .en(1'b1),
+    .DAC_in(rand)
+    );
 endmodule
