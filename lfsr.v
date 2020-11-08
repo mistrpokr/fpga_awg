@@ -6,7 +6,6 @@ module lfsr (input clk,
     
     initial begin
         DAC_in <= 14'd1;
-        cnt  <= 6'd0;
     end
     
     always @(posedge clk) begin
