@@ -1,7 +1,10 @@
 module dds (input clk,
-            output [13:0] DA,
-            output DA_CLK,
-            output DA_WR,
+            output [13:0] DA_A,
+            output DA_CLK_A,
+            output DA_WR_A,
+            output reg [13:0]DA_B,
+            output DA_CLK_B,
+            output DA_WR_B,
             input rxf,
             input txe,
             output wr,
@@ -28,9 +31,12 @@ module dds (input clk,
     .state_freq(state_freq),
     .state_amp(state_amp),
     .state_phase(state_phase),
-    .DA_A(DA),
-    .DA_CLK_A(DA_CLK),
-    .DA_WR_A(DA_WR)
+    .DA_A(DA_A),
+    .DA_CLK_A(DA_CLK_A),
+    .DA_WR_A(DA_WR_A),
+    .DA_B(DA_B),
+    .DA_CLK_A(DA_CLK_B),
+    .DA_WR_A(DA_WR_B)
     );
     
     usb usb_inst(
@@ -41,7 +47,7 @@ module dds (input clk,
     .rd(rd),
     .d(d),
     .SI(SI),
-    .cmd_buf()
+    .cmd_buf(cmd)
     );
     
     state_sel_comp state_sel_inst(
@@ -54,6 +60,3 @@ module dds (input clk,
     .state_phase(state_phase)
     );
 endmodule
-    
-    
-    //TODO 0000瀵瑰�??-0.5V; 1111瀵瑰�??0.5V

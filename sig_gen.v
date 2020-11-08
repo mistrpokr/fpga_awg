@@ -5,9 +5,12 @@ module sig_gen(input clk,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
-               output DA_WR_A);
+               output DA_WR_A,
+               output reg [13:0]DA_B,
+               output DA_CLK_B,
+               output DA_WR_B);
     
-    parameter MAX_state = 5'd3;
+    // parameter MAX_state = 5'd3;
     
     wire t_1sec;
     
@@ -35,6 +38,8 @@ module sig_gen(input clk,
     
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
+    assign DA_CLK_B = clk;
+    assign DA_WR_B  = ~clk;
     
     assign freq  = 10 ** state_freq; // TODO 1kHz ~ 5GHz?
     assign amp   = 2**state_amp; // 0~9 --> 2^0 ~ 2^-9 times amp
@@ -44,6 +49,7 @@ module sig_gen(input clk,
     begin
         cnt  <= cnt + 14'h1;
         DA_A <= DAC_data;
+        DA_B <= DAC_data; 
         
         
         // if (t_1sec) begin
@@ -84,11 +90,6 @@ module sig_gen(input clk,
             DAC_data <= 14'b0;
         endcase
     end
-    
-    t1s t1s_inst(
-    .clk(clk),
-    .s(t_1sec)
-    );
     
     saw_gen saw_inst(
     .clk(clk),
