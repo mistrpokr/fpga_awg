@@ -7,6 +7,7 @@ module state_sel_comp (clk,
                        state_phase);
     input clk;
     input [7:0] cmd;
+	input rd; 
     output reg [4:0] state; // TODO Will 5 bits work?
     output reg [7:0] state_freq;
     output reg [7:0] state_amp;
@@ -16,6 +17,7 @@ module state_sel_comp (clk,
     
     wire shift_1s;
     
+	reg [1:0] cmd_state; 
     reg [31:0] parse_buf;
     reg [31:0] parsed;
     
@@ -67,12 +69,12 @@ module state_sel_comp (clk,
                     end
                     else begin
                         // Append received cmd to 8 LSB of parse buffer
-                        parse_buf <= {parse_buf[31:8], cmd[7:0]}
+                        parse_buf <= {parse_buf[31:8], cmd[7:0]}; 
                     end
                     
                     // When 8 MSBs are filled(received 4th cmd char)
                     if (parse_buf[31]|parse_buf[30]|parse_buf[29]|parse_buf[28]|
-                    parse_buf[27]|parse_buf[26]|parse_buf[25]|parse_buf[24]|)
+                    parse_buf[27]|parse_buf[26]|parse_buf[25]|parse_buf[24])
                     begin
                         parsed[31:0] <= parse_buf[31:0]; // Send buffer to "permanent" parsed register
                         

@@ -43,5 +43,5 @@ module tri_gen (en,
     tri_table tri_phase(
     .address(addr[18:9] + phase),
     .data(data_phase)
-    )
+    );
 endmodule

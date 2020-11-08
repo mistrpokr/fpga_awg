@@ -43,5 +43,5 @@ module saw_gen (en,
     saw_table saw_phase(
     .address(addr[18:9] + phase),
     .data(data_phase)
-    )
+    ); 
 endmodule

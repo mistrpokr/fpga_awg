@@ -43,5 +43,5 @@ module sqr_gen (en,
     sqr_table sqr_phase(
     .address(addr[18:9] + phase),
     .data(data_phase)
-    )
+    );
 endmodule

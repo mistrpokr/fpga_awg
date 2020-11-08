@@ -44,5 +44,5 @@ module sin_gen (en,
     sin_table sin_phase(
     .address(addr[18:9] + phase),
     .data(data_phase)
-    )
+    ); 
 endmodule

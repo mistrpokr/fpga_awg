@@ -17,6 +17,7 @@ module sig_gen_comp(input clk,
     reg [3:0] en;
     reg [15:0] addr;
     reg [13:0] DAC_data;
+    reg [13:0] DAC_data_phase;
     
     wire [11:0] freq;
     wire [2:0] amp;
@@ -45,7 +46,7 @@ module sig_gen_comp(input clk,
     assign DA_CLK_B = clk;
     assign DA_WR_B  = ~clk;
     
-    assign freq  = 10 ** state_freq; // TODO 1kHz ~ 5GHz?
+    assign freq  = 10 * state_freq; // TODO 1kHz ~ 5GHz?
     assign amp   = 2**state_amp; // 0~9 --> 2^0 ~ 2^-9 times amp
     assign phase = 114*state_phase; // 9*114 ~= 1024
     
@@ -53,7 +54,7 @@ module sig_gen_comp(input clk,
     begin
         cnt  <= cnt + 14'h1;
         DA_A <= DAC_data;
-        DA_B <= DAC_data;
+        DA_B <= DAC_data_phase;
         
         case (state)
             5'd0: begin
@@ -111,7 +112,7 @@ module sig_gen_comp(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_out_A(Tri)
+    .DAC_out_A(Tri), 
     .DAC_out_B(Tri_phase)
     );
     
@@ -121,7 +122,7 @@ module sig_gen_comp(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_out_A(sqr)
+    .DAC_out_A(sqr), 
     .DAC_out_B(sqr_phase)
     );
     
@@ -131,7 +132,7 @@ module sig_gen_comp(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_out_A(sin)
+    .DAC_out_A(sin), 
     .DAC_out_B(sin_phase)
     );
     

@@ -25,7 +25,7 @@ module dds (input clk,
     // .c1 (clk_100M)
     // );
     
-    sig_gen sig_gen_inst(
+    sig_gen_comp sig_gen_inst(
     .clk(clk),
     .state(state),
     .state_freq(state_freq),
@@ -35,8 +35,8 @@ module dds (input clk,
     .DA_CLK_A(DA_CLK_A),
     .DA_WR_A(DA_WR_A),
     .DA_B(DA_B),
-    .DA_CLK_A(DA_CLK_B),
-    .DA_WR_A(DA_WR_B)
+    .DA_CLK_B(DA_CLK_B),
+    .DA_WR_B(DA_WR_B)
     );
     
     usb usb_inst(
@@ -53,7 +53,7 @@ module dds (input clk,
     state_sel_comp state_sel_inst(
     .clk(clk_100M),
     .cmd(cmd),
-    .rd(rd)
+    .rd(rd), 
     .state(state),
     .state_freq(state_freq),
     .state_amp(state_amp),
