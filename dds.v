@@ -44,7 +44,7 @@ module dds (input clk,
     .cmd_buf()
     );
     
-    state_sel #(.DEF_STATE(5'd4)) state_sel_inst(
+    state_sel #(.DEF_STATE(5'd3)) state_sel_inst(
     .clk(clk_100M),
     .cmd(cmd),
     .state(state),
