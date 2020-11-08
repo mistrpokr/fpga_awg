@@ -1,7 +1,7 @@
 module sig_gen(input clk,
                input [4:0] state,
-               input [11:0] state_freq,
-               input [2:0] state_amp,
+               input [7:0] state_freq,
+               input [7:0] state_amp,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
@@ -17,6 +17,10 @@ module sig_gen(input clk,
     reg [15:0] addr;
     reg [13:0] DAC_data;
     
+    wire [11:0] freq;
+    wire [2:0] amp;
+    wire [7:0] phase;
+    
     wire [13:0] saw;
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
@@ -31,6 +35,10 @@ module sig_gen(input clk,
     
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
+    
+    assign freq  = 10 ** state_freq; // TODO 1kHz ~ 5GHz?
+    assign amp   = 2**state_amp; // 0~9 --> 2^0 ~ 2^-9 times amp
+    assign phase = 20*state_phase; // 20*(0~9) --> 0~180 degrees
     
     always @(posedge clk)
     begin
@@ -85,36 +93,36 @@ module sig_gen(input clk,
     saw_gen saw_inst(
     .clk(clk),
     .en(en[0]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(saw)
     );
     
     tri_gen tri_inst(
     .clk(clk),
     .en(en[1]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(Tri)
     );
     
     sqr_gen sqr_inst(
     .clk(clk),
     .en(en[2]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(sqr)
     );
     
     sin_gen sin_inst(
     .clk(clk),
     .en(en[3]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(sin)
     );
     

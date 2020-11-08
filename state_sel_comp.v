@@ -7,7 +7,7 @@ module state_sel (clk,
                   state_phase);
     input clk;
     input [7:0] cmd;
-    output reg [4:0] state; // TODO Will 5 bits work? 
+    output reg [4:0] state; // TODO Will 5 bits work?
     output reg [7:0] state_freq;
     output reg [7:0] state_amp;
     output reg [7:0] state_phase;
@@ -39,7 +39,7 @@ module state_sel (clk,
      */
     always @(posedge rd) begin
         // Sample input: "f1234"
-
+        
         // *ONLY INPUT STARTING WITH AN "f" PUTS cmd_state into 2'd1*
         if (cmd == "f") begin
             cmd_state <= 2'd1;
@@ -48,9 +48,9 @@ module state_sel (clk,
         else begin
             case (cmd_state)
                 2'd0: begin //Normal Output
-                    cmd_state <= 2'd0;  // TODO is this appropriate?
+                    cmd_state <= 2'd0;  // TODO is this necessary?
                     
-                    //sets all states to corresponding decimal number
+                    //repeatedly sets all states to corresponding decimal number
                     state       <= parsed[31:24] - 8'd48;
                     state_freq  <= parsed[23:16] - 8'd48;
                     state_amp   <= parsed[15:8] - 8'd48;
@@ -75,11 +75,17 @@ module state_sel (clk,
                     parse_buf[27]|parse_buf[26]|parse_buf[25]|parse_buf[24]|)
                     begin
                         parsed[31:0] <= parse_buf[31:0]; // Send buffer to "permanent" parsed register
-                        cmd_state    <= 2'd0; // Keep normal output following 4-digit command
+                        
+                        state        <= parsed[31:24] - 8'd48;
+                        state_freq   <= parsed[23:16] - 8'd48;
+                        state_amp    <= parsed[15:8] - 8'd48;
+                        state_phase  <= parsed[7:0] - 8'd48;
+                        
+                        cmd_state <= 2'd0; // Keep normal output following 4-digit command
                     end
                 end
             endcase
         end
     end
-
+    
 endmodule
