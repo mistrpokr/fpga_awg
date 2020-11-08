@@ -20,7 +20,7 @@ module sig_gen_comp(input clk,
     
     wire [11:0] freq;
     wire [2:0] amp;
-    wire [7:0] phase;
+    wire [11:0] phase;
     
     wire [13:0] saw;
     wire [13:0] Tri; // 'tri' is reserved in verilog
@@ -47,7 +47,7 @@ module sig_gen_comp(input clk,
     
     assign freq  = 10 ** state_freq; // TODO 1kHz ~ 5GHz?
     assign amp   = 2**state_amp; // 0~9 --> 2^0 ~ 2^-9 times amp
-    assign phase = 20*state_phase; // 20*(0~9) --> 0~180 degrees
+    assign phase = 114*state_phase; // 9*114 ~= 1024
     
     always @(posedge clk)
     begin
@@ -81,8 +81,8 @@ module sig_gen_comp(input clk,
             end
             
             5'd4: begin
-                DAC_data <= rand;
-                DAC_data_phase <= rand; 
+                DAC_data       <= rand;
+                DAC_data_phase <= rand;
             end
             
             5'd10: begin
