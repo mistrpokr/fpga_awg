@@ -28,8 +28,8 @@ module sig_gen(input clk,
         en   <= 4'b0;
     end
     
-    assign DA_CLK_A        = clk;
-    assign DA_WR_A         = ~clk;
+    assign DA_CLK_A = clk;
+    assign DA_WR_A  = ~clk;
     
     always @(posedge clk)
     begin
@@ -78,7 +78,7 @@ module sig_gen(input clk,
     );
     
     saw_gen saw_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[0]),
     .state_freq(state_freq),
     .state_amp(state_amp),
@@ -87,7 +87,7 @@ module sig_gen(input clk,
     );
     
     tri_gen tri_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[1]),
     .state_freq(state_freq),
     .state_amp(state_amp),
@@ -96,7 +96,7 @@ module sig_gen(input clk,
     );
     
     sqr_gen sqr_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[2]),
     .state_freq(state_freq),
     .state_amp(state_amp),
