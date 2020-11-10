@@ -20,7 +20,7 @@ module sig_gen(input clk,
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
     wire [13:0] sin;
-    wire [13:0] lfsr;
+    wire [13:0] rand;
     
     initial begin
         addr <= 15'b0;
@@ -60,9 +60,9 @@ module sig_gen(input clk,
                 DAC_data <= sin;
             end
             
-            // 5'd4: begin
-            //     DAC_data <= lfsr;
-            // end
+            5'd4: begin
+                DAC_data <= rand;
+            end
             
             5'd10: begin
                 en       <= 4'b0000;

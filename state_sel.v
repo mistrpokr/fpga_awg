@@ -41,6 +41,9 @@ module state_sel (clk,
             8'd52: begin //4
                 state <= 5'd3;
             end
+            8'd53: begin //5
+                state <= 5'd4;
+            end
             8'd48: begin //0
                 state <= 5'd10;
             end
