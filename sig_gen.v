@@ -22,6 +22,10 @@ module sig_gen(input clk,
     wire [13:0] sin;
     wire [13:0] rand;
     
+    wire [11:0] freq;
+    wire [3:0] amp;
+    wire [8:0] phase;
+    
     initial begin
         addr <= 15'b0;
         en   <= 4'b0;
@@ -29,6 +33,12 @@ module sig_gen(input clk,
     
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
+    
+    assign freq  = 12'd1 * state_freq;
+    //assign amp   = 2**state_amp;
+    assign amp   = 3'd1;
+    assign phase = 20*state_phase;
+    
     
     always @(posedge clk)
     begin
@@ -82,36 +92,36 @@ module sig_gen(input clk,
     saw_gen saw_inst(
     .clk(clk),
     .en(en[0]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(saw)
     );
     
     tri_gen tri_inst(
     .clk(clk),
     .en(en[1]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(Tri),
     );
     
     sqr_gen sqr_inst(
     .clk(clk),
     .en(en[2]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(sqr),
     );
     
     sin_gen sin_inst(
     .clk(clk),
     .en(en[3]),
-    .state_freq(state_freq),
-    .state_amp(state_amp),
-    .state_phase(state_phase),
+    .freq(freq),
+    .amp(amp),
+    .phase(phase),
     .DAC_in(sin),
     );
     
