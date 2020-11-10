@@ -1,5 +1,5 @@
 module sig_gen(input clk,
-               input [4:0] state,
+               input [2:0] state,
                input [11:0] state_freq,
                input [2:0] state_amp,
                input [7:0] state_phase,
@@ -40,31 +40,31 @@ module sig_gen(input clk,
         // end
         
         case (state)
-            5'd0: begin
+            3'd0: begin
                 en       <= 4'b0001;
                 DAC_data <= saw; //sawtooth
             end
             
-            5'd1: begin
+            3'd1: begin
                 en       <= 4'b0010;
                 DAC_data <= Tri; //triangular
             end
             
-            5'd2: begin
+            3'd2: begin
                 en       <= 4'b0100;
                 DAC_data <= sqr;
             end
             
-            5'd3: begin
+            3'd3: begin
                 en       <= 4'b1000;
                 DAC_data <= sin;
             end
             
-            5'd4: begin
+            3'd4: begin
                 DAC_data <= rand;
             end
             
-            5'd10: begin
+            3'd7: begin
                 en       <= 4'b0000;
                 DAC_data <= 14'b0;
             end
