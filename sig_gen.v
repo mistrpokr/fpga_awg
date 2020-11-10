@@ -42,10 +42,10 @@ module sig_gen(input clk,
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
     
-    assign freq   = 12'd1 * state_freq;
-    // assign amp = state_amp;
-    assign amp    = 3'd1;
-    assign phase  = 20*state_phase;
+    assign freq  = 12'd524 * state_freq;
+    assign amp   = state_amp;
+    // assign amp   = 3'd1;
+    assign phase = 20*state_phase;
     
     
     always @(posedge clk)
@@ -84,7 +84,7 @@ module sig_gen(input clk,
             end
             
             3'd4: begin
-                DAC_data <= rand;
+                DAC_data       <= rand;
                 DAC_data_phase <= rand;
             end
             
