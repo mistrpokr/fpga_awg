@@ -28,46 +28,46 @@ module state_sel (clk,
 		// 	state_freq <= state_freq + 12'd100; 
 		// end
 
-        // case (cmd)
-        //     8'd49: begin //1
-        //         state <= 5'd0;
-        //     end
-        //     8'd50: begin //2
-        //         state <= 5'd1;
-        //     end
-        //     8'd51: begin //3
-        //         state <= 5'd2;
-        //     end
-        //     8'd52: begin //4
-        //         state <= 5'd3;
-        //     end
-        //     8'd48: begin //0
-        //         state <= 5'd10;
-        //     end
-        //     default: state <= state;
-        // endcase
         case (cmd)
             8'd49: begin //1
-                state_freq <= 12'd1;
-				state_amp <= 3'd1; 
+                state <= 5'd0;
             end
             8'd50: begin //2
-				state_freq <= 12'd524; 
-				state_amp <= 3'd2; 
+                state <= 5'd1;
             end
             8'd51: begin //3
-				state_freq <= 12'd100; 
-				state_amp <= 3'd3; 
+                state <= 5'd2;
             end
             8'd52: begin //4
-				state_freq <= 12'd1000; 
-				state_amp <= 3'd4; 
+                state <= 5'd3;
             end
             8'd48: begin //0
-				state_freq <= 12'd10000; 
+                state <= 5'd10;
             end
             default: state <= state;
         endcase
+        // case (cmd)
+        //     8'd49: begin //1
+        //         state_freq <= 12'd1;
+		// 		state_amp <= 3'd1; 
+        //     end
+        //     8'd50: begin //2
+		// 		state_freq <= 12'd524; 
+		// 		state_amp <= 3'd2; 
+        //     end
+        //     8'd51: begin //3
+		// 		state_freq <= 12'd100; 
+		// 		state_amp <= 3'd3; 
+        //     end
+        //     8'd52: begin //4
+		// 		state_freq <= 12'd1000; 
+		// 		state_amp <= 3'd4; 
+        //     end
+        //     8'd48: begin //0
+		// 		state_freq <= 12'd10000; 
+        //     end
+        //     default: state <= state;
+        // endcase
     end
 
 	t1s freq_shift(

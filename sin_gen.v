@@ -24,7 +24,7 @@ module sin_gen (en,
         addr       <= addr + addr_step;
         // sin_amp <= (sin_w - 14'd8192)/(state_amp)*(sin_w[13]?-1'd1:-1'd1) + 14'd8192;
         // sin_amp <= (sin_w - 14'd8192)/(state_amp) + 14'd8192;
-        sin_amp    <= (sin_w[13]?(sin_w-14'd8192)/state_amp+14'd8192:14'd8192-(14'd8192-sin_w)/state_amp);
+        sin_amp    <= sin_w/state_amp-14'd8192/state_amp+14'd8192; 
     end
     
     sin_table sin_tab_inst(

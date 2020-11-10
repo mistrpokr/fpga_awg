@@ -11,7 +11,6 @@ module sig_gen(input clk,
     
     wire t_1sec;
     
-    reg [13:0] cnt;
     // reg [4:0] state;
     reg [3:0] en;
     reg [15:0] addr;
@@ -21,19 +20,18 @@ module sig_gen(input clk,
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
     wire [13:0] sin;
+    wire [13:0] lfsr;
     
     initial begin
-        cnt  <= 16'b0;
         addr <= 15'b0;
         en   <= 4'b0;
     end
     
-    assign DA_CLK_A        = clk;
-    assign DA_WR_A         = ~clk;
+    assign DA_CLK_A = clk;
+    assign DA_WR_A  = ~clk;
     
     always @(posedge clk)
     begin
-        cnt  <= cnt + 14'h1;
         DA_A <= DAC_data;
         
         
@@ -62,6 +60,10 @@ module sig_gen(input clk,
                 DAC_data <= sin;
             end
             
+            // 5'd4: begin
+            //     DAC_data <= lfsr;
+            // end
+            
             5'd10: begin
                 en       <= 4'b0000;
                 DAC_data <= 14'b0;
@@ -78,7 +80,7 @@ module sig_gen(input clk,
     );
     
     saw_gen saw_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[0]),
     .state_freq(state_freq),
     .state_amp(state_amp),
@@ -87,7 +89,7 @@ module sig_gen(input clk,
     );
     
     tri_gen tri_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[1]),
     .state_freq(state_freq),
     .state_amp(state_amp),
@@ -96,7 +98,7 @@ module sig_gen(input clk,
     );
     
     sqr_gen sqr_inst(
-    .cnt(cnt),
+    .clk(clk),
     .en(en[2]),
     .state_freq(state_freq),
     .state_amp(state_amp),
@@ -111,6 +113,12 @@ module sig_gen(input clk,
     .state_amp(state_amp),
     .state_phase(state_phase),
     .DAC_in(sin),
+    );
+    
+    lfsr lfsr_inst(
+    .clk(clk),
+    .en(1'b1),
+    .DAC_in(rand)
     );
     
 endmodule
