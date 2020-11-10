@@ -5,7 +5,10 @@ module sig_gen(input clk,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
-               output DA_WR_A);
+               output DA_WR_A,
+               output reg [13:0]DA_B,
+               output DA_CLK_B,
+               output DA_WR_B);
     
     parameter MAX_state = 5'd3;
     
@@ -15,12 +18,17 @@ module sig_gen(input clk,
     reg [3:0] en;
     reg [15:0] addr;
     reg [13:0] DAC_data;
+    reg [13:0] DAC_data_phase;
     
     wire [13:0] saw;
     wire [13:0] Tri; // 'tri' is reserved in verilog
     wire [13:0] sqr;
     wire [13:0] sin;
     wire [13:0] rand;
+    wire [13:0] saw_phase;
+    wire [13:0] Tri_phase; // 'tri' is reserved in verilog
+    wire [13:0] sqr_phase;
+    wire [13:0] sin_phase;
     
     wire [11:0] freq;
     wire [3:0] amp;
@@ -34,15 +42,16 @@ module sig_gen(input clk,
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
     
-    assign freq  = 12'd1 * state_freq;
-    //assign amp   = 2**state_amp;
-    assign amp   = 3'd1;
-    assign phase = 20*state_phase;
+    assign freq   = 12'd1 * state_freq;
+    // assign amp = state_amp;
+    assign amp    = 3'd1;
+    assign phase  = 20*state_phase;
     
     
     always @(posedge clk)
     begin
         DA_A <= DAC_data;
+        DA_B <= DAC_data_phase;
         
         
         // if (t_1sec) begin
@@ -51,27 +60,32 @@ module sig_gen(input clk,
         
         case (state)
             3'd0: begin
-                en       <= 4'b0001;
-                DAC_data <= saw; //sawtooth
+                en             <= 4'b0001;
+                DAC_data       <= saw; //sawtooth
+                DAC_data_phase <= saw_phase;
             end
             
             3'd1: begin
-                en       <= 4'b0010;
-                DAC_data <= Tri; //triangular
+                en             <= 4'b0010;
+                DAC_data       <= Tri; //triangular
+                DAC_data_phase <= Tri_phase;
             end
             
             3'd2: begin
-                en       <= 4'b0100;
-                DAC_data <= sqr;
+                en             <= 4'b0100;
+                DAC_data       <= sqr;
+                DAC_data_phase <= sqr_phase;
             end
             
             3'd3: begin
-                en       <= 4'b1000;
-                DAC_data <= sin;
+                en             <= 4'b1000;
+                DAC_data       <= sin;
+                DAC_data_phase <= sin_phase;
             end
             
             3'd4: begin
                 DAC_data <= rand;
+                DAC_data_phase <= rand;
             end
             
             3'd7: begin
@@ -95,7 +109,8 @@ module sig_gen(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_in(saw)
+    .DA_A(saw),
+    .DA_B(saw_phase)
     );
     
     tri_gen tri_inst(
@@ -104,7 +119,8 @@ module sig_gen(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_in(Tri),
+    .DA_A(Tri),
+    .DA_B(Tri_phase)
     );
     
     sqr_gen sqr_inst(
@@ -113,7 +129,8 @@ module sig_gen(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_in(sqr),
+    .DA_A(sqr),
+    .DA_B(sqr_phase)
     );
     
     sin_gen sin_inst(
@@ -122,7 +139,8 @@ module sig_gen(input clk,
     .freq(freq),
     .amp(amp),
     .phase(phase),
-    .DAC_in(sin),
+    .DA_A(sin),
+    .DA_B(sin_phase)
     );
     
     lfsr lfsr_inst(
