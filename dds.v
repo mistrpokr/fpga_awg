@@ -56,4 +56,4 @@ module dds (input clk,
 endmodule
     
     
-    //TODO 0000鐎电懓绨0.5V; 1111鐎电懓绨.5V
+    //TODO 0000閻庣數鎳撶花0.5V; 1111閻庣數鎳撶花.5V
