@@ -39,7 +39,7 @@ module sqr_gen (en,
     );
     
     sqr_table sqr_tab_phase(
-    .address(addr[18:10]+9'd300),
+    .address(addr[18:10]+phase),
     .data(sqr_w_phase)
     ); 
 endmodule

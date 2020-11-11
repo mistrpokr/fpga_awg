@@ -39,7 +39,7 @@ module sin_gen (en,
     );
     
     sin_table sin_tab_phase(
-    .address(addr[18:10]+9'd300),
+    .address(addr[18:10]+phase),
     .data(sin_w_phase)
     ); 
 endmodule

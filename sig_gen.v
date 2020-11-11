@@ -41,7 +41,9 @@ module sig_gen(input clk,
     
     assign DA_CLK_A = clk;
     assign DA_WR_A  = ~clk;
-    
+    assign DA_CLK_B = clk;
+    assign DA_WR_B  = ~clk;
+
     assign freq  = 12'd524 * state_freq;
     assign amp   = state_amp;
     // assign amp   = 3'd1;

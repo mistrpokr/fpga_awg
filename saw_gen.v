@@ -39,7 +39,7 @@ module saw_gen (en,
     );
     
     saw_table saw_tab_phase(
-    .address(addr[18:10]+9'd300),
+    .address(addr[18:10]+phase),
     .data(saw_w_phase)
     ); 
 endmodule
