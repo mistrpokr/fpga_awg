@@ -43,22 +43,34 @@ module sig_gen(input clk,
     assign DA_WR_A  = ~clk;
     assign DA_CLK_B = clk;
     assign DA_WR_B  = ~clk;
-
-    assign freq  = 12'd524 * state_freq;
-    assign amp   = state_amp;
-    // assign amp   = 3'd1;
-    assign phase = 20*state_phase;
     
+    // assign freq = 12'd524 * state_freq;
+    assign freq    = freq_calc(state_freq[3:0]);
+    assign amp     = state_amp;
+    // assign amp  = 3'd1;
+    assign phase   = 64*state_phase;
+    
+    function [11:0] freq_calc;
+        input [3:0] state_freq;
+        begin
+            case (state_freq[3:0])
+                4'd1: freq_calc    = 12'd5; //1k
+                4'd2: freq_calc    = 12'd52; //10k
+                4'd3: freq_calc    = 12'd105; //20k
+                4'd4: freq_calc    = 12'd524; //100k
+                4'd5: freq_calc    = 12'd1048; //200k
+                4'd6: freq_calc    = 12'd2620; //500k
+                // 4'd7: freq_calc    = 12'd5240; //1M
+                // 4'd8: freq_calc    = 12'd52400; //10M?
+                default: freq_calc = 12'd1;
+            endcase
+        end
+    endfunction
     
     always @(posedge clk)
     begin
         DA_A <= DAC_data;
         DA_B <= DAC_data_phase;
-        
-        
-        // if (t_1sec) begin
-        //     state = (state == MAX_state)?5'd0:(state + 5'd1); //changes state
-        // end
         
         case (state)
             3'd0: begin

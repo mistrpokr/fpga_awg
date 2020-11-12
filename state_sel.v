@@ -30,10 +30,10 @@ module state_sel (clk,
         parse_buf <= 32'd0;
     end
     
-    assign state       = parse_buf[31:24] - 8'd48;
-    assign state_freq  = parse_buf[23:16] - 8'd48;
-    assign state_amp   = parse_buf[15:8] - 8'd48;
-    assign state_phase = parse_buf[7:0] - 8'd48;
+    assign state       = (parse_buf[31:24] - 8'd48);
+    assign state_freq  = (parse_buf[23:16] - 8'd48);
+    assign state_amp   = (parse_buf[15:8] - 8'd48);
+    assign state_phase = (parse_buf[7:0] - 8'd48);
     
     
     always @(posedge rd) begin
