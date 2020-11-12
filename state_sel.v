@@ -22,11 +22,6 @@ module state_sel (clk,
     wire shift_1s;
     
     initial begin
-        // state       <= DEF_STATE;
-        // state_freq  <= 12'd1;
-        // state_amp   <= 3'd50;
-        // state_phase <= 8'd50;
-        
         parse_buf <= 32'd0;
     end
     
@@ -37,10 +32,10 @@ module state_sel (clk,
     
     
     always @(posedge rd) begin
-        if (cmd > "0" && cmd <= "9") begin
+        if (cmd >= "0" && cmd <= "9") begin
             parse_buf <= {parse_buf[23:0], cmd[7:0]};
         end
-        else if (cmd == "0") begin
+        else if (cmd == "d") begin
             parse_buf <= 32'd0;
         end
     end

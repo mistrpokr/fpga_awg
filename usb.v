@@ -15,7 +15,6 @@ module usb(
 	reg div_clk;
 	reg div_clk2;
 	
-	
 	initial begin
 		state <= 0;
 		wr <= 0;

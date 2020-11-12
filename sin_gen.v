@@ -5,7 +5,6 @@ module sin_gen (en,
                 phase,
                 DA_A,
                 DA_B);
-    // input [15:0] addr;
     input en;
     input clk;
     input [11:0] freq;
@@ -27,8 +26,6 @@ module sin_gen (en,
     
     always @(posedge clk) begin
         addr          <= addr + addr_step;
-        // sin_amp    <= (sin_w - 14'd8192)/(amp)*(sin_w[13]?-1'd1:-1'd1) + 14'd8192;
-        // sin_amp    <= (sin_w - 14'd8192)/(amp) + 14'd8192;
         sin_amp       <= sin_w/amp-14'd8192/amp+14'd8192;
         sin_amp_phase <= sin_w_phase/amp-14'd8192/amp+14'd8192;
     end
