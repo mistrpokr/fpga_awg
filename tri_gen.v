@@ -9,7 +9,7 @@ module tri_gen (en,
     input en;
     input clk;
     input [11:0] freq;
-    input [2:0] amp;
+    input [3:0] amp;
     input [7:0] phase;
     output [13:0] DA_A;
     output [13:0] DA_B;

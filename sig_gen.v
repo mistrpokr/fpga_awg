@@ -1,7 +1,7 @@
 module sig_gen(input clk,
                input [2:0] state,
                input [11:0] state_freq,
-               input [2:0] state_amp,
+               input [3:0] state_amp,
                input [7:0] state_phase,
                output reg [13:0]DA_A,
                output DA_CLK_A,
@@ -148,7 +148,7 @@ module sig_gen(input clk,
     lfsr lfsr_inst(
     .clk(clk),
     .en(1'b1),
-    .DAC_in(rand)
+    .DA(rand)
     );
     
 endmodule

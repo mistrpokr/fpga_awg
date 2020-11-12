@@ -15,11 +15,11 @@ module dds (input clk,
     wire [7:0] cmd;
     wire [2:0] state;
     wire [11:0] state_freq;
-    wire [2:0] state_amp;
+    wire [3:0] state_amp;
     wire [7:0] state_phase;
     
     
-    clk2	clk2_inst (
+    clk2 clk2_inst (
     .inclk0 (clk),
     .c0 (clk_40M),
     .c1 (clk_100M)
